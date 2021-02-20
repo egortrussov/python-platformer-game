@@ -7,7 +7,7 @@ class Menu:
         self.window = window 
     
     def draw(self):
-        self.window.draw_rect(100, 150)
+        self.window.draw_rect(100, 150, 50, 50, [255, 0, 0])
     
     def click(self, pos):
         x, y = pos 

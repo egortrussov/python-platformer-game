@@ -1,8 +1,10 @@
 import pygame 
 
-from config.Constants import *
-from Window.Window import *
 from Game.Game import *
+ 
+from config.Constants import * 
+from Window.Window import * 
+ 
 
 pygame.init()
 
@@ -22,6 +24,7 @@ def main():
         WIN.fill([0, 0, 0])
 
         events = pygame.event.get()
+        keys = pygame.key.get_pressed()
 
         clock.tick(FPS)
 
@@ -30,6 +33,7 @@ def main():
                 exit()
         
         game.check_events(events)
+        game.check_keys(keys)
 
         game.draw_scene()
 

@@ -18,7 +18,7 @@ class Game:
             self.scene.draw()
             return True
         else:
-            self.scene.draw()
+            self.scene.perform()
     
     def check_events(self, events):
 
@@ -32,3 +32,9 @@ class Game:
                     self.level = level
                     self.is_menu = False 
                     self.scene = Level(self.window, pos)
+
+    def check_keys(self, keys):
+
+        if (self.level != None):
+            self.scene.check_keys(keys)
+        pass
