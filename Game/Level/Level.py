@@ -1,16 +1,22 @@
 import pygame 
 
 from Game.Level.Player.Player import *
+from Game.Level.Obstacles.Obstacles import *
 
 class Level:
     def __init__(self, window, number):
         self.window = window 
         self.number = number
         self.player = Player(window, 50, 200)
+
+        self.obstacles = Obstacles(window, number) 
+        self.player.obstacles = self.obstacles
     
     def perform(self):
 
         self.player.check_falling()
+
+        self.obstacles.perform()
 
         self.draw()
     

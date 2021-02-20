@@ -31,7 +31,7 @@ class Game:
 
                     self.level = level
                     self.is_menu = False 
-                    self.scene = Level(self.window, pos)
+                    self.scene = Level(self.window, level)
 
     def check_keys(self, keys):
 
