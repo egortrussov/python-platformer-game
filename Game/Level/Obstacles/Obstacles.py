@@ -26,6 +26,7 @@ class Obstacles:
     
     def check_collision(self, x, y, dir):
         res = True
+        limit = 0
 
         if dir == 'right':
             xx = x + PLAYER_WIDTH 
@@ -34,8 +35,11 @@ class Obstacles:
             for tile in self.obstacles:
                 tile_x = tile.x * TILE_SIZE 
                 tile_y = tile.y * TILE_SIZE 
+                if (tile.type != 'solid'):
+                    continue
                 if (tile_x < xx and tile_x + TILE_SIZE > xx) and intersect(y, yy, tile_y, tile_y + TILE_SIZE):
                     res = False
+                    limit = tile_x - PLAYER_WIDTH
         
         if dir == 'left':
             xx = x + PLAYER_WIDTH 
@@ -44,18 +48,28 @@ class Obstacles:
             for tile in self.obstacles:
                 tile_x = tile.x * TILE_SIZE 
                 tile_y = tile.y * TILE_SIZE 
+                if (tile.type != 'solid'):
+                    continue
                 if (tile_x + TILE_SIZE > x and tile_x < x) and intersect(y, yy, tile_y, tile_y + TILE_SIZE):
                     res = False
+                    limit = tile_x + TILE_SIZE + 1
 
         if dir == 'down':
             xx = x + PLAYER_WIDTH 
-            yy = y + PLAYER_HEIGHT 
+            yy = y + PLAYER_HEIGHT
+
+            if (yy >= WIN_HEIGHT):
+                limit = WIN_HEIGHT - PLAYER_HEIGHT
+                res = False
 
             for tile in self.obstacles:
                 tile_x = tile.x * TILE_SIZE 
                 tile_y = tile.y * TILE_SIZE 
-                if (tile_y < yy and tile_y + TILE_SIZE > yy) and intersect(x, xx, tile_x, tile_x + TILE_SIZE):
+                if (tile.type != 'solid'):
+                    continue
+                if (tile_y <= yy and tile_y + TILE_SIZE >= yy) and intersect(x, xx, tile_x, tile_x + TILE_SIZE):
                     res = False
+                    limit = tile_y - PLAYER_HEIGHT
         
         if dir == 'up':
             xx = x + PLAYER_WIDTH 
@@ -64,8 +78,11 @@ class Obstacles:
             for tile in self.obstacles:
                 tile_x = tile.x * TILE_SIZE 
                 tile_y = tile.y * TILE_SIZE 
+                if (tile.type != 'solid'):
+                    continue
                 if (tile_y + TILE_SIZE > y and tile_y < y) and intersect(x, xx, tile_x, tile_x + TILE_SIZE):
                     res = False
+                    limit = tile_y + TILE_SIZE
         
 
-        return res
+        return res, limit

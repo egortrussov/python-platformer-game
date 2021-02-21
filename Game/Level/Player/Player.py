@@ -20,8 +20,13 @@ class Player:
     def perform(self):
 
         new_x = self.x + self.acceleration_x 
-        if (self.obstacles.check_collision(new_x, self.y, self.dir)):
-            self.x = new_x
+        if (self.acceleration_x):
+            res, limit = self.obstacles.check_collision(new_x, self.y, self.dir)
+            if (res):
+                self.x = new_x
+            else:
+                self.acceleration_x = 0 
+                self.x = limit
 
         # self.x += self.acceleration_x 
         dir_y = 'up'
@@ -29,9 +34,11 @@ class Player:
             dir_y = 'down'
         if (self.acceleration_y):
             new_y = self.acceleration_y + self.y 
-            if (self.obstacles.check_collision(self.x, new_y, dir_y)):
+            res, limit = self.obstacles.check_collision(self.x, new_y, dir_y)
+            if (res):
                 self.y = new_y
             else:
+                self.y = limit
                 self.acceleration_y = 0
 
         if (self.acceleration_x and not self.is_moving):
@@ -47,9 +54,10 @@ class Player:
     
     def is_falling(self):
         y, height = self.y, self.height 
-        bottom_pos = y + height  
 
-        return bottom_pos < WIN_HEIGHT
+        res, limit = self.obstacles.check_collision(self.x, self.y, 'down')
+
+        return res
     
     def check_falling(self):
         if (self.is_falling()):
@@ -60,8 +68,9 @@ class Player:
                 self.acceleration_y = 0
     
     def jump(self):
-        # if (not self.is_falling()):
-        self.acceleration_y = -10 
+        print(self.is_falling(), self.y, WIN_HEIGHT)
+        if (not self.is_falling()):
+            self.acceleration_y = -10 
     
     def move(self, dir):
         if (dir == 'left'):
