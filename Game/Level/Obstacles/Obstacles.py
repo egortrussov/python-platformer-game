@@ -8,9 +8,10 @@ def intersect(l, r, l1, r1):
 
 class Obstacles:
 
-    def __init__(self, window, level):
+    def __init__(self, window, level, camera_position):
         self.window = window
         self.level = level 
+        self.camera_position = camera_position
 
         self.load_obstacles()
     
@@ -22,7 +23,7 @@ class Obstacles:
     
     def draw_obstacles(self):
         for tile in self.obstacles:
-            self.window.draw_rect(tile.x * TILE_SIZE, tile.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, [0, 125, 25])
+            self.window.draw_rect(tile.x * TILE_SIZE - self.camera_position, tile.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, [0, 125, 25])
     
     def check_collision(self, x, y, dir):
         res = True
@@ -44,6 +45,10 @@ class Obstacles:
         if dir == 'left':
             xx = x + PLAYER_WIDTH 
             yy = y + PLAYER_HEIGHT 
+
+            if (x <= 0):
+                res = False 
+                limit = 0
 
             for tile in self.obstacles:
                 tile_x = tile.x * TILE_SIZE 
