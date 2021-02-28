@@ -3,6 +3,7 @@ import pygame
 from Game.Level.Obstacles.get_obstacles import get_obstacles
 from config.Constants import *
 
+
 def intersect(l, r, l1, r1):
     return (min(r, r1) > max(l, l1))
 
@@ -23,7 +24,10 @@ class Obstacles:
     
     def draw_obstacles(self):
         for tile in self.obstacles:
-            self.window.draw_rect(tile.x * TILE_SIZE - self.camera_position, tile.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, [0, 125, 25])
+
+            tile.draw(self.window, self.camera_position)
+
+            # self.window.draw_rect(tile.x * TILE_SIZE - self.camera_position, tile.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, [0, 125, 25])
     
     def check_collision(self, x, y, dir):
         res = True

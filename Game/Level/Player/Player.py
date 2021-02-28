@@ -83,7 +83,7 @@ class Player:
     
     def move(self, dir):
         if (dir == 'left'):
-            self.acceleration_x = max(self.acceleration_x - 1, -10)
+            self.acceleration_x = max(self.acceleration_x - 1, -6)
         if (dir == 'right'):
-            self.acceleration_x = min(self.acceleration_x + 1, 10)
+            self.acceleration_x = min(self.acceleration_x + 1, 6)
         self.dir = dir
