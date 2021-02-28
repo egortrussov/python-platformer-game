@@ -52,7 +52,11 @@ class Player:
         self.draw()
     
     def draw(self):
-        self.window.draw_rect(self.x - self.camera_position, self.y, self.width, self.height, [0, 255, 0])
+        path = 'sprites/player/player_standing_1.png'
+
+        flip_hor = self.dir == 'left'
+
+        self.window.draw_image(path, self.x - self.camera_position, self.y, self.width, self.height, flip_hor=flip_hor)
     
     def check_camera_movement(self):
         x = self.x 

@@ -55,9 +55,13 @@ def get_obstacles(level):
                 inx = 1
                 if (row and level_data[row - 1][col] == '#'):
                     inx = 0
-                else:
+                elif (row and level_data[row - 1][col] == ' '):
                     if (random.randint(0, 3) <= 2):
                         obstacles.append( Tile(col, row - 1, 'decoration', 'sprites/decoration/grass_1.png', 0, True, 2) )
+                 
+                if (row < TILES_VER - 1 and level_data[row + 1][col] == ' '):
+                    if (random.randint(0, 3) <= 2):
+                        obstacles.append( Tile(col, row + 1, 'decoration', 'sprites/decoration/dirt_stalagmite.png', 0, False, 0) )
                 
                 obstacles.append( Tile(col, row, 'solid', dirt_sprites[inx], 0, False, 0) )
     
