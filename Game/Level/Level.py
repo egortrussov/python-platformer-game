@@ -9,6 +9,7 @@ class Level:
         self.number = number
         self.player = Player(window, 50, 200, 0)
 
+        
         self.obstacles = Obstacles(window, number, 0) 
         self.player.obstacles = self.obstacles
         self.camera_position = 0

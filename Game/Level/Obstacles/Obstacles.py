@@ -17,17 +17,19 @@ class Obstacles:
         self.load_obstacles()
     
     def load_obstacles(self):
-        self.obstacles = get_obstacles(self.level) 
+        self.obstacles, self.decoration = get_obstacles(self.level) 
     
     def perform(self):
         self.draw_obstacles()
     
     def draw_obstacles(self):
+
+        for tile in self.decoration:
+            tile.draw(self.window, self.camera_position)
+
         for tile in self.obstacles:
 
             tile.draw(self.window, self.camera_position)
-
-            # self.window.draw_rect(tile.x * TILE_SIZE - self.camera_position, tile.y * TILE_SIZE, TILE_SIZE, TILE_SIZE, [0, 125, 25])
     
     def check_collision(self, x, y, dir):
         res = True

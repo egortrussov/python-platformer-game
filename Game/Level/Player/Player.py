@@ -17,6 +17,12 @@ class Player:
         self.acceleration_x = 0
         self.is_moving = False
         self.dir = 'right'
+
+        self.draw_count = 0 
+        self.standing_frames_num = 2
+        self.standing_frame = 1
+        self.moving_frames_num = 2
+        self.moving_frame = 1
     
     def perform(self):
 
@@ -55,8 +61,34 @@ class Player:
         path = 'sprites/player/player_standing_1.png'
 
         flip_hor = self.dir == 'left'
+        width = self.width
 
-        self.window.draw_image(path, self.x - self.camera_position, self.y, self.width, self.height, flip_hor=flip_hor)
+        if (self.acceleration_y):
+            path = 'sprites/player/player_jumping_1.png'
+            width += 15
+        elif (self.acceleration_x):
+            path = 'sprites/player/player_moving_1.png'
+            path_1 = list(path) 
+            path_1[-5] = str(self.moving_frame)
+            path = "".join(path_1)
+        else:
+            path_1 = list(path) 
+            path_1[-5] = str(self.standing_frame)
+            path = "".join(path_1)
+
+        self.window.draw_image(path, self.x - self.camera_position, self.y, width, self.height, flip_hor=flip_hor)
+
+        self.draw_count += 1 
+        if (self.draw_count % 20 == 1):
+            self.standing_frame += 1 
+            if (self.standing_frame > self.standing_frames_num):
+                self.standing_frame = 1
+        if (self.draw_count % 20 == 1):
+            self.moving_frame += 1 
+            if (self.moving_frame > self.moving_frames_num):
+                self.moving_frame = 1
+        
+
     
     def check_camera_movement(self):
         x = self.x 
