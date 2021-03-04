@@ -16,3 +16,7 @@ class Window:
             sprite = pygame.transform.flip(sprite, True, False)
 
         self.WIN.blit(sprite, (x, y))
+    
+    def draw_text(self, x, y, text, font, color):
+        text_to_display = font.render(text, 1, color) 
+        self.WIN.blit(text_to_display, (x, y))

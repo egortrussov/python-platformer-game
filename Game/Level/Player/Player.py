@@ -83,7 +83,7 @@ class Player:
             self.standing_frame += 1 
             if (self.standing_frame > self.standing_frames_num):
                 self.standing_frame = 1
-        if (self.draw_count % 20 == 1):
+        if (self.draw_count % 10 == 1):
             self.moving_frame += 1 
             if (self.moving_frame > self.moving_frames_num):
                 self.moving_frame = 1

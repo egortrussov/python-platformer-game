@@ -2,19 +2,21 @@ import pygame
 
 from Game.Level.Player.Player import *
 from Game.Level.Obstacles.Obstacles import *
+from Game.HintText.HintText import *
 
 class Level:
     def __init__(self, window, number):
         self.window = window 
         self.number = number
         self.player = Player(window, 50, 200, 0)
-
         
         self.obstacles = Obstacles(window, number, 0) 
         self.player.obstacles = self.obstacles
         self.camera_position = 0
 
         self.player.move_camera = self.move_camera
+
+        self.hint = HintText(window, ['level 1', 'Super trash'], 14)
     
     def perform(self):
 
@@ -22,9 +24,8 @@ class Level:
 
         self.obstacles.perform()
 
-        self.draw()
-    
-    def draw(self):
+        self.hint.display()
+
         self.player.perform()
     
     def check_keys(self, keys):
