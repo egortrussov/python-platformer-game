@@ -22,7 +22,8 @@ class HintText:
         x = WIN_WIDTH - 10 - rect_width + self.padding 
         y = 10 + self.padding
 
-        self.window.draw_rect(x - 10, y - self.padding, rect_width, rect_height, [255, 0, 0])
+        self.window.draw_rect(x - 10 - 5, y - self.padding - 5, rect_width + 6, rect_height + 6, [0, 0, 255])
+        self.window.draw_rect(x - 10, y - self.padding, rect_width, rect_height, [0, 0, 0])
 
         for line in self.text:
             self.window.draw_text(x, y, line, self.font, [255, 255, 255])

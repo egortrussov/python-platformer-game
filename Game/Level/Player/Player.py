@@ -17,12 +17,14 @@ class Player:
         self.acceleration_x = 0
         self.is_moving = False
         self.dir = 'right'
+        self.health = 3
 
         self.draw_count = 0 
         self.standing_frames_num = 2
         self.standing_frame = 1
         self.moving_frames_num = 2
         self.moving_frame = 1
+
     
     def perform(self):
 
@@ -78,6 +80,8 @@ class Player:
 
         self.window.draw_image(path, self.x - self.camera_position, self.y, width, self.height, flip_hor=flip_hor)
 
+        self.draw_health()
+
         self.draw_count += 1 
         if (self.draw_count % 20 == 1):
             self.standing_frame += 1 
@@ -87,8 +91,7 @@ class Player:
             self.moving_frame += 1 
             if (self.moving_frame > self.moving_frames_num):
                 self.moving_frame = 1
-        
-
+    
     
     def check_camera_movement(self):
         x = self.x 
@@ -123,3 +126,11 @@ class Player:
         if (dir == 'right'):
             self.acceleration_x = min(self.acceleration_x + 1, 6)
         self.dir = dir
+    
+    def draw_health(self):
+        health = self.health 
+        x, y = 10, 10
+
+        for i in range(health):
+            self.window.draw_image('sprites/player/heart.png', x, y, 60, 60) 
+            x += 70
