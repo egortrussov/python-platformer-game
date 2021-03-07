@@ -17,7 +17,7 @@ class Obstacles:
         self.load_obstacles()
     
     def load_obstacles(self):
-        self.obstacles, self.decoration = get_obstacles(self.level) 
+        self.obstacles, self.decoration, self.bonuses = get_obstacles(self.window, self.level) 
     
     def perform(self):
         self.draw_obstacles()
@@ -26,9 +26,11 @@ class Obstacles:
 
         for tile in self.decoration:
             tile.draw(self.window, self.camera_position)
+        for bonus in self.bonuses:
+            bonus.draw(self.camera_position)
+        
 
         for tile in self.obstacles:
-
             tile.draw(self.window, self.camera_position)
     
     def check_collision(self, x, y, dir):

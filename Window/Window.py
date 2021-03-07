@@ -17,6 +17,11 @@ class Window:
 
         self.WIN.blit(sprite, (x, y))
     
-    def draw_text(self, x, y, text, font, color):
-        text_to_display = font.render(text, 1, color) 
+    def draw_text(self, x, y, text, font, color, font_link = None, font_size = None):
+        text_to_display = None 
+        if font:
+            text_to_display = font.render(text, 1, color) 
+        else:
+            font = pygame.font.Font(font_link, font_size)
+            text_to_display = font.render(text, 1, color) 
         self.WIN.blit(text_to_display, (x, y))

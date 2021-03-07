@@ -2,6 +2,7 @@ import pygame
 import math
 
 from config.Constants import *
+from Game.Level.Player.Inventory.Inventory import *
 
 class Player:
 
@@ -17,13 +18,15 @@ class Player:
         self.acceleration_x = 0
         self.is_moving = False
         self.dir = 'right'
-        self.health = 3
+        self.health = 70
 
         self.draw_count = 0 
         self.standing_frames_num = 2
         self.standing_frame = 1
         self.moving_frames_num = 2
         self.moving_frame = 1
+
+        self.inventory = Inventory(window)
 
     
     def perform(self):
@@ -81,6 +84,7 @@ class Player:
         self.window.draw_image(path, self.x - self.camera_position, self.y, width, self.height, flip_hor=flip_hor)
 
         self.draw_health()
+        self.inventory.draw()
 
         self.draw_count += 1 
         if (self.draw_count % 20 == 1):
@@ -130,7 +134,11 @@ class Player:
     def draw_health(self):
         health = self.health 
         x, y = 10, 10
+        width_full = 250 
+        width = health / 100 * width_full 
 
-        for i in range(health):
-            self.window.draw_image('sprites/player/heart.png', x, y, 60, 60) 
-            x += 70
+
+        self.window.draw_rect(10, 10, width_full, 40, [30, 30, 30])
+        self.window.draw_rect(10, 10, width, 40, [0, 185, 0])
+        self.window.draw_text(60, 20, 'Health: ' + str(health), font=None, color=[255, 255, 255], font_link='fonts/joystix.ttf', font_size=15)
+        
